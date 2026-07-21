@@ -44,33 +44,62 @@ Create a branch with one of the following prefixes:
 
 ## Commit Message Format
 
-Any contributor **MUST** follow our commit conventions. We follow the
-[ESLint Conventions](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint)
-preset. The commit history drives [Semantic Release](https://semantic-release.gitbook.io/semantic-release/)
-for tags and releases.
+Any contributor **MUST** follow [Conventional Commits](https://www.conventionalcommits.org/). The commit
+history drives [Semantic Release](https://semantic-release.gitbook.io/semantic-release/) (using the
+`conventionalcommits` preset) for tags and releases.
 
 Every commit must use the following structure:
 
 ```text
-Tag: Short description
+<type>[optional (scope)][!]: <description>
 
-Longer description here if necessary
+[optional body]
 
----
-[OPTIONAL]
-Closes <issue_number>
+[optional footer(s)]
 ```
 
-| Tag      | Description                                                                   |
-|----------|-------------------------------------------------------------------------------|
-| Breaking | Changes which introduce a backwards-incompatible enhancement or feature       |
-| Release  | Changes which requires a new major release                                    |
-| Feature  | Changes which introduce a new feature                                         |
-| Fix      | Changes which fix or patch a bug                                              |
-| Perf     | Changes which affect performance improvements                                 |
-| CI       | Changes which affect CI/CD workflows                                          |
-| Chore    | Changes for refactoring, adding tests, etc. (anything that isn't user-facing) |
-| Docs     | Changes which affect documentation                                            |
+| Type       | Description                                                            |
+|------------|------------------------------------------------------------------------|
+| `feat`     | Changes which introduce a new feature                                  |
+| `fix`      | Changes which fix or patch a bug                                       |
+| `perf`     | Changes which affect performance improvements                          |
+| `docs`     | Changes which affect documentation                                     |
+| `style`    | Changes which don't affect code meaning (whitespace, formatting, etc.) |
+| `refactor` | Changes which neither fix a bug nor add a feature                      |
+| `test`     | Adding or correcting tests                                             |
+| `build`    | Changes affecting the build system or external dependencies            |
+| `ci`       | Changes which affect CI/CD workflows                                   |
+| `chore`    | Anything else that isn't user-facing                                   |
+
+A breaking change is indicated either by appending `!` after the type/scope, or by including a
+`BREAKING CHANGE:` footer describing the incompatible change:
+
+```text
+feat!: remove deprecated resolve() overload
+```
+
+```text
+fix: correct token resolution order
+
+BREAKING CHANGE: tokens registered after container creation are no longer resolved eagerly
+```
+
+Release behavior is configured separately from this commit syntax and may differ from the default
+Conventional Commits release mappings.
+
+Examples:
+
+```text
+feat(container): add support for async factory providers
+```
+
+```text
+fix(token): resolve circular dependency detection off-by-one
+```
+
+```text
+docs: clarify branching conventions in CONTRIBUTING.md
+```
 
 ## PR / MR Process
 
