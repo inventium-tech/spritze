@@ -1,11 +1,65 @@
 {
-  "name": "spritze",
-  "module": "index.ts",
+  "name": "@inventium-tech/spritze",
+  "description": "Zero-dependency Bun-native dependency injection container for TypeScript with opaque typed tokens and standard ECMAScript class decorators.",
+  "keywords": [
+    "bun",
+    "dependency-injection",
+    "di",
+    "typescript",
+    "ioc",
+    "container",
+    "decorators",
+    "zero-dependency"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "bun": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
+  "engines": {
+    "bun": ">=1.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "bun@1.3.14",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "typecheck:strict": "tsc --noEmit -p tsconfig.strict.json",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build": "bun build src/index.ts --production --outdir dist",
+    "prepack": "rm -rf dist && bun run build && bun run build:types",
+    "test": "bun test",
+    "examples": "bun run examples/quickstart.ts && bun run examples/decorators.ts && bun run examples/interfaces.ts && bun run examples/factory.ts && bun run examples/errors.ts",
+    "bench": "bun run bench/resolve.ts",
+    "bench:quick": "bun run bench/resolve.ts --quick",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint .",
+    "check": "bun run typecheck && bun run typecheck:strict && bun run lint && bun run format:check && bun run test"
+  },
   "devDependencies": {
-    "@types/bun": "1.3.14"
+    "@biomejs/biome": "2.5.5",
+    "@semantic-release/commit-analyzer": "13.0.1",
+    "@semantic-release/github": "12.0.9",
+    "@semantic-release/npm": "13.1.5",
+    "@semantic-release/release-notes-generator": "14.1.1",
+    "@types/bun": "1.3.14",
+    "conventional-changelog-eslint": "6.1.0",
+    "semantic-release": "25.0.8",
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
-    "typescript": "7"
+    "typescript": "7.0.2"
   }
 }
