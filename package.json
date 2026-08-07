@@ -11,6 +11,14 @@
     "zero-dependency"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inventium-tech/spritze.git"
+  },
+  "homepage": "https://github.com/inventium-tech/spritze#readme",
+  "bugs": {
+    "url": "https://github.com/inventium-tech/spritze/issues"
+  },
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
