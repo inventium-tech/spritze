@@ -4,7 +4,9 @@
 
 ## Local Setup
 
-Prerequisites: Bun (see `engines.bun` in `package.json` for the minimum supported version).
+Prerequisites: Bun (see `engines.bun` in `package.json` for the minimum supported version). Bun is the build and
+development tool for this repository; the published package also supports Node.js `>=22.0.0` and Deno `>=2.0.0` as
+consumption runtimes (see `engines` in `package.json`).
 
 ```sh
 bun install
@@ -25,6 +27,7 @@ bun run build:types
 bun run prepack          # clean dist/, then build + build:types (runs automatically on bun publish)
 bun run examples         # run every example script
 bun run bench            # micro-benchmarks, grouped headline output
+bun run test:runtime     # cross-runtime smoke suite (bun/node/deno) against the packaged dist/ output
 ```
 
 Run `bun run check` before opening a PR; it mirrors the CI pipeline's lint/type/test gate.
