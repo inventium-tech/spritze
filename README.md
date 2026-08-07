@@ -3,14 +3,19 @@
 ![GitHub License](https://img.shields.io/github/license/inventium-tech/spritze?style=for-the-badge)
 ![NPM Downloads](https://img.shields.io/npm/dw/%40inventium-tech%2Fspritze?style=for-the-badge)
 ![NPM Version](https://img.shields.io/npm/v/%40inventium-tech%2Fspritze?style=for-the-badge)
-[![semantic-release](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
-A zero-dependency, Bun-native dependency injection container for TypeScript. Opaque typed tokens, standard ECMAScript
-class decorators (no `reflect-metadata`, no constructor parameter decorators), and a small, explicit resolution model.
+A zero-dependency dependency injection container for TypeScript. Opaque typed tokens, standard ECMAScript class
+decorators (no `reflect-metadata`, no constructor parameter decorators), and a small, explicit resolution model.
 
-Runtime target: **Bun only**. The package requires Bun `>=1.3.0` (see `engines.bun` in `package.json` for the minimum
-supported version) and is built with TypeScript's standard (Stage 3) class decorators. CI runs against a pinned Bun
-1.3.x release; no broader compatibility is established or claimed. Node.js and browser support are not established or
+Runtime support (see `engines` in `package.json` for the minimum supported versions):
+
+- **Bun:** `>=1.3.0`
+- **Node.js:** `>=22.0.0`
+- **Deno:** `>=2.0.0`.
+
+Bun remains the build and development tool -- the library itself is built with TypeScript's standard (Stage 3) class
+decorators and has no runtime dependencies or runtime-specific shims. CI runs a cross-runtime smoke suite (`bun run
+test:runtime`) against the packaged `dist/` output on all three runtimes. No browser runtime guarantee is established or
 claimed.
 
 ## What it does / Use cases
@@ -26,6 +31,18 @@ Installing as a dependency in another project:
 
 ```bash
 bun add spritze
+```
+
+Using npm with Node.js:
+
+```bash
+npm install @inventium-tech/spritze
+```
+
+Consuming from Deno via the `npm:` specifier:
+
+```ts
+import { createContainer } from "npm:@inventium-tech/spritze";
 ```
 
 Setting up this repository for local development (see
@@ -148,6 +165,6 @@ See [docs/faq-troubleshooting.md](./docs/faq-troubleshooting.md)
 - No child/scoped containers.
 - No async factories.
 - No disposal/teardown hooks.
-- No Node.js or browser runtime guarantee -- Bun only.
+- No browser runtime guarantee.
 
 See [`ROADMAP.md`](ROADMAP.md) for what's planned and what's explicitly gated on measurement first.

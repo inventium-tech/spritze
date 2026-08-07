@@ -4,10 +4,11 @@
 
 ## 1. System Overview
 
-Spritze is a zero-dependency, Bun-native dependency injection (DI) container for TypeScript. It provides opaque typed
+Spritze is a zero-dependency dependency injection (DI) container for TypeScript. It provides opaque typed
 tokens, standard ECMAScript class decorators (`@inject`/`@singleton`, no `reflect-metadata`, no constructor parameter
 decorators), and a small, explicit resolution model with transient and per-container singleton lifetimes. The library is
-a single importable module (`src/index.ts`) with no runtime dependencies and no plugin or extension surface.
+a single importable module (`src/index.ts`) with no runtime dependencies and no plugin or extension surface. It supports
+Bun `>=1.3.0`, Node.js `>=22.0.0`, and Deno `>=2.0.0` as runtime targets; Bun remains the build and development tool.
 
 ## 2. Architectural Style
 
@@ -61,7 +62,7 @@ type declaration emission — they are not bundled into `dist/`.
 ```
 .
 ├── src/            # library source (container, decorators, errors, token, public exports)
-├── tests/          # bun test suite (di, factory, types, bench-report tests)
+├── tests/          # bun test suite (di, factory, types, bench-report tests) plus tests/runtime/ (cross-runtime smoke consumer)
 ├── examples/       # runnable scripts importing directly from ../src/index.ts
 ├── bench/          # Bun micro-benchmarks (resolution throughput, container creation)
 ├── dist/           # generated build output (bun run build); not source
@@ -84,8 +85,9 @@ Not a monorepo — a single package with one public entry point (`src/index.ts`)
   and the resolution/cycle-detection stack cannot be bypassed by capturing the outer container.
 - **Bindings are immutable once set**: duplicate binds throw rather than silently overwriting, to keep container state
   easy to reason about.
-- **Bun-only runtime target**: no Node.js or browser compatibility shims are added; this keeps the codebase small and
-  avoids compatibility-layer maintenance burden.
+- **No Node.js- or browser-specific compatibility shims**: Bun, Node.js, and Deno all run the same `dist/` output
+  unmodified via the package's `exports` map; this keeps the codebase small and avoids compatibility-layer
+  maintenance burden. No browser runtime guarantee is established.
 - **Zero runtime dependencies**: a hard project-wide constraint (see AGENTS.md: "Constraints").
 
 ## 8. Evolution Strategy
@@ -94,4 +96,4 @@ Feature work follows the sequencing in [ROADMAP.md](./ROADMAP.md): correctness a
 coverage, reproducible micro-benchmarks), then ergonomics (child/scoped containers, batch registration helpers — each
 gated on benchmark evidence of no resolution-performance regression), then diagnostics/tooling, then advanced lifetimes
 (request/scope-bound, lazy resolution) only if Milestone 1 benchmarking shows the current transient/singleton model is
-insufficient. No multi-runtime support is planned; Spritze remains Bun-only by design.
+insufficient.

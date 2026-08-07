@@ -17,7 +17,7 @@ roadmap avoids date commitments; milestones are sequenced, not scheduled.
 - [x] Duplicate-binding and missing-binding detection via `ResolutionError`.
 - [x] `UndecoratedError` for classes resolved without `@inject`/`@singleton`.
 - [x] Stable structured machine-readable error codes and shapes.
-- [x] Zero runtime dependencies; Bun-only build (`bun build`) and type
+- [x] Zero runtime dependencies; Bun-based build (`bun build`) and type
       declarations (`tsc --project tsconfig.build.json`).
 - [x] Test suite covering tokens, binding, lifetimes, factory bindings,
       error paths, and dependency ordering (`bun test`).
@@ -25,6 +25,9 @@ roadmap avoids date commitments; milestones are sequenced, not scheduled.
       ([`bench/README.md`](./bench/README.md)) runnable via `bun run bench`:
       methodology and hardware context are documented, but raw benchmark
       artifacts are not committed to the repository.
+- [x] Cross-runtime smoke suite (`bun run test:runtime`) validating the
+      packaged `dist/` output against Bun, Node.js `>=22`, and Deno `>=2`,
+      run independently in CI as the `runtime-compatibility` job.
 
 ## Measurement (remaining)
 
@@ -63,7 +66,7 @@ blocking work.
 
 ## Non-goals
 
-- No multi-runtime support (Node, Deno, browser). Spritze is Bun-only.
+- No browser runtime guarantee.
 - No `reflect-metadata` or constructor parameter decorators.
 - Benchmarks inform performance-sensitive work and regression checks, but do
   not block later feature work.
