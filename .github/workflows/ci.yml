@@ -64,12 +64,12 @@ jobs:
         uses: oven-sh/setup-bun@v2.2.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v7.0.0
         with:
           node-version: "22.x"
 
       - name: Setup Deno
-        uses: denoland/setup-deno@v2
+        uses: denoland/setup-deno@v2.0.5
         with:
           deno-version: "v2.x"
 
